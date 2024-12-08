@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <title>AgentCommission</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .top-nav {
+            background-color: #343a40;
+            padding: 10px 20px;
+        }
+        .top-nav a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .top-nav a:hover {
+            text-decoration: underline;
+        }
+        hr {
+            margin: 20px 0;
+        }
+        .sidenav {
+            width: 250px;
+            background-color: #ffffff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding: 30px;
+            border-right: 1px solid #ccc;
+        }
+        .sidenav h1 {
+            font-size: 20px;
+            color: #343a40;
+            margin-bottom: 30px;
+        }
+        .sidenav a {
+            display: block;
+            color: #007bff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 8px 0;
+            text-decoration: none;
+            margin: 10px 0;
+        }
+        .sidenav a:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+            border-radius: 8px;
+        }
+        .sidenav a.active {
+            color: #2db2ff;
+        }
+        .main {
+            margin-left: 280px;
+            padding: 30px;
+        }
+        .main h2 {
+            font-size: 24px;
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: center;
+        }
+        .table-bordered {
+            border: 1px solid #ccc;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .text-muted {
+            font-size: 18px;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class='top-nav'>
+        <nav>
+            <div style="text-align: right;">
+                <a href="/logout">LOGOUT</a>
+            </div>
+        </nav>
+    </div>
+    <hr>
+
+    <!-- Side navigation -->
+    <div class="sidenav">
+        <h1>Welcome {{emailName}}</h1>
+        <a href="/agent_home">My Flights</a>
+        <a href="/agent_purchase_search">Search & Purchase Tickets</a>
+        <a href="/agent_commission" style="color: #2db2ff;">My Commission</a>
+        <a href="/agent_customers_ranking">Top Customers</a>
+    </div>
+    
+    <!-- Page content -->
+    <div class="main">
+        <h2>My Commission</h2>
+        <div style="text-align: center;">
+            <h4>
+                <form action="/agent_commission" method="POST">
+                    <label for="duration">Data collected from </label>
+                    <select name="duration" required>
+                        {% if duration == "7" %}
+                        <option value="7" selected="selected">last week</option>
+                        {% else %}
+                        <option value="7">last week</option>
+                        {% endif %}
+                        
+                        {% if duration == "30" %}
+                        <option value="30" selected="selected">last month</option>
+                        {% else %}
+                        <option value="30">last month</option>
+                        {% endif %}
+
+                        {% if duration == "91" %}
+                        <option value="91" selected="selected">last quarter</option>
+                        {% else %}
+                        <option value="91">last quarter</option>
+                        {% endif %}
+
+                        {% if duration == "365" %}
+                        <option value="365" selected="selected">last year</option>
+                        {% else %}
+                        <option value="365">last year</option>
+                        {% endif %}
+
+                        {% if duration == "1825" %}
+                        <option value="1825" selected="selected">last 5 years</option>
+                        {% else %}
+                        <option value="1825">last 5 years</option>
+                        {% endif %}
+
+                        {% if duration == "36500" %}
+                        <option value="36500" selected="selected">all</option>
+                        {% else %}
+                        <option value="36500">all</option>
+                        {% endif %}
+                    </select>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </h4>
+
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <th>total commission</th>
+                    <th>avg commission per ticket</th>
+                    <th>num of tickets</th>
+                </thead>
+    
+                <tbody>
+                    <tr>
+                        {% if total_com %}
+                        <td>{{total_com}}</td>
+                        {% else %}
+                        <td>0</td>
+                        {% endif %}
+                        {% if avg_com %}
+                        <td>{{avg_com}}</td>
+                        {% else %}
+                        <td>0</td>
+                        {% endif %}
+                        <td>{{count_ticket}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

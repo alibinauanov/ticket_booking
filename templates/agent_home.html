@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <title>Agent Home</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .top-nav {
+            background-color: #343a40;
+            padding: 10px 20px;
+        }
+        .top-nav a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .top-nav a:hover {
+            text-decoration: underline;
+        }
+        hr {
+            margin: 20px 0;
+        }
+        .sidenav {
+            width: 250px;
+            background-color: #ffffff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding: 30px;
+            border-right: 1px solid #ccc;
+        }
+        .sidenav h1 {
+            font-size: 20px;
+            color: #343a40;
+            margin-bottom: 30px;
+        }
+        .sidenav a {
+            display: block;
+            color: #007bff;  /* Same color as the normal text */
+            font-size: 18px;
+            font-weight: bold;
+            padding: 8px 0;
+            text-decoration: none;
+            margin: 10px 0;
+        }
+
+        .sidenav a:hover {
+            background-color: #e9ecef; /* Light gray background for hover */
+            color: #007bff;
+            border-radius: 8px;
+        }
+
+        .sidenav a.active {
+            color: #2db2ff; /* Active link color */
+        }
+
+        .main {
+            margin-left: 280px;
+            padding: 30px;
+        }
+        .main h2 {
+            font-size: 24px;
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: center;
+        }
+        .table-bordered {
+            border: 1px solid #ccc;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <nav>
+            <div style="text-align: right;">
+                <a href="/logout">LOGOUT</a>
+            </div>
+        </nav>
+    </div>
+    <hr>
+
+    <!-- Side navigation -->
+    <div class="sidenav">
+        <h1>Welcome {{emailName}}</h1>
+        <a href="/agent_home" class="active">My Flights</a>
+        <a href="/agent_purchase_search">Search & Purchase Tickets</a>
+        <a href="/agent_commission">My Commission</a>
+        <a href="/agent_customers_ranking">Top Customers</a>
+    </div>
+
+    <!-- Page content -->
+    <div class="main">
+        <h2>My Upcoming Flights</h2>
+        <h5>My booking_agent_id: {{booking_agent_id[0]}}</h5>
+        
+        {% if view_my_flights %}
+        </br>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm text-center">
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Customer Email</th>
+                        <th>Purchase Date</th>
+                        <th>Airline Name</th>
+                        <th>Flight Number</th>
+                        <th>Departure City & Airport</th>
+                        <th>Departure Time</th>
+                        <th>Arrival City & Airport</th>
+                        <th>Arrival Time</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for line in view_my_flights %}
+                    <tr>
+                        <td>{{line[0]}}</td> <!-- Ticket ID -->
+                        <td>{{line[1]}}</td> <!-- Customer Email -->
+                        <td>{{line[2]}}</td> <!-- Purchase Date -->
+                        <td>{{line[3]}}</td> <!-- Airline Name -->
+                        <td>{{line[4]}}</td> <!-- Flight Number -->
+                        <td>{{line[5]}} {{line[6]}}</td> <!-- Departure City & Airport -->
+                        <td>{{line[7]}}</td> <!-- Departure Time -->
+                        <td>{{line[8]}} {{line[9]}}</td> <!-- Arrival City & Airport -->
+                        <td>{{line[10]}}</td> <!-- Arrival Time -->
+                        <td>{{line[11]}}</td> <!-- Price -->
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <h5 class="text-muted">No Upcoming Flights</h5>
+        {% endif %}
+    </div>
+
+</body>
+</html>

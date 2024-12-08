@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <title>Staffagent</title>
+</head>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    .top-nav {
+        background-color: #343a40;
+        padding: 10px 20px;
+    }
+
+    .top-nav a {
+        color: white;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .top-nav a:hover {
+        text-decoration: underline;
+    }
+
+    hr {
+        margin: 20px 0;
+    }
+
+    .sidenav {
+        width: 250px;
+        background-color: #ffffff;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        padding: 30px;
+        border-right: 1px solid #ccc;
+    }
+
+    .sidenav h1 {
+        font-size: 20px;
+        color: #343a40;
+        margin-bottom: 30px;
+    }
+
+    .sidenav a {
+        display: block;
+        color: #007bff;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 8px 0;
+        text-decoration: none;
+        margin: 10px 0;
+    }
+
+    .sidenav a:hover {
+        background-color: #e9ecef;
+        color: #007bff;
+        border-radius: 8px;
+    }
+
+    .sidenav a.active {
+        color: #2db2ff;
+    }
+
+    .main {
+        margin-left: 280px; /* Increased margin to give more space from sidebar */
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        max-width: 1200px;
+        margin-right: 30px;
+        margin-left: auto;
+        padding-left: 30px; /* Add padding to the left side to create more space */
+        padding-right: 30px; /* Add padding to the right side as well */
+    }
+
+    .main h2 {
+        font-size: 28px;
+        color: #343a40;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .main h3 {
+        font-size: 24px;
+        color: #007bff;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 30px;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+        font-size: 16px;
+    }
+
+    .table thead {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .table th {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .text-muted {
+        font-size: 18px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .sidenav {
+            width: 200px;
+            padding: 20px;
+        }
+
+        .main {
+            margin-left: 0;
+            margin-right: 0;
+            padding: 20px;
+            padding-left: 15px; /* Adjust padding for smaller screens */
+            padding-right: 15px;
+        }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .main h2 {
+            font-size: 24px;
+        }
+
+        .main h3 {
+            font-size: 20px;
+        }
+    }
+</style>
+<body>
+    <div class='top-nav'>
+        <nav>
+            <div style="text-align: right;">
+                <a href="/logout">LOGOUT</a>
+            </div>
+        </nav>
+    </div>
+    <hr>
+    
+    <div class="sidenav">
+        <h1>Welcome {{username}}</h1>
+        <a href="/staff_home">Upcoming Flights</a>
+        <a href="/staff_flight">Search & Change Flight</a>
+        <a href="/staff_insert_data">Create Flight & Airplane & Airport</a>
+        <a href="/staff_agent" style="color: #2db2ff;">View Booking Agents</a>
+        <a href="/staff_customer">View Customers</a>
+        <a href="/staff_destination">View Top Destination</a>
+        <a href="/staff_revenue">View Revenue Earned</a>
+        <a href="/staff_tickets">View Tickets Sold</a>
+    </div>
+
+    <div class="main">
+        {% if adata %}
+            </br>
+            <h2>View Booking Agents for <strong style="color: #028ada;">{{adata[0][1]}}</strong></h2>
+        {% else %}
+            <h2>View Booking Agents</h2>
+        {% endif %}
+        
+
+        <div style="text-align: center;">
+            <h3 style="text-align: center;">Top 5 Agents on Amount of Commission Last Year</h3>
+            <table class="table table-bordered table-sm">
+                <th>email</th>
+                <th>booking agent id</th>
+                <th>amount of commission</th>
+
+            {% for line in commission %}		
+                <tr>
+                    <td>{{line[0]}}</td>
+                    <td>{{line[1]}}</td>	
+                    <td>{{line[2]}}</td>
+                </tr>
+            {% endfor %}
+            </table>
+
+            <h3 style="text-align: center;">Top 5 Agents on Number of Tickets Last Month</h3>
+            <table class="table table-bordered table-sm">
+                <th>email</th>
+                <th>booking agent id</th>
+                <th>number of tickets sales</th>
+
+            {% for line in month %}		
+                <tr>
+                    <td>{{line[0]}}</td>
+                    <td>{{line[1]}}</td>
+                    <td>{{line[2]}}</td>	
+                </tr>
+            {% endfor %}
+            </table>
+
+            <h3 style="text-align: center;">Top 5 Agents on Number of Tickets Last Year</h3>
+            <table class="table table-bordered table-sm">
+                <th>email</th>
+                <th>booking agent id</th>
+                <th>number of tickets sales</th>
+
+            {% for line in year %}		
+                <tr>
+                    <td>{{line[0]}}</td>
+                    <td>{{line[1]}}</td>	
+                    <td>{{line[2]}}</td>
+                </tr>
+            {% endfor %}
+            </table>
+
+            <h3 style="text-align: center;">All Agents</h3>
+            <table class="table table-bordered table-sm">
+                <th>email</th>
+                <th>booking agent id</th>
+
+            {% for line in posts %}		
+                <tr>
+                    <td>{{line[0]}}</td>
+                    <td>{{line[1]}}</td>	
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
