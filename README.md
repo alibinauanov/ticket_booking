@@ -4,13 +4,12 @@
 - **Alibi Nauanov** (an3502)  
 - **Sayon Biswas** (sb7239)  
 
-### Project: 
 **Final Project**
 
 ---
 
 ## Description
-The **Ticket Reservation System** is a project developed for managing ticket bookings efficiently and reliably. This system allows users to handle ticket-related tasks through a streamlined interface.
+The **Ticket Reservation System** is a project developed for managing ticket bookings efficiently and reliably.
 
 ---
 
